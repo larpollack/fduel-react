@@ -1,17 +1,8 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 
 export default class Navbar extends Component {
   render() {
-    const classToggle = () => {
-      let linksEl = document.querySelectorAll(".navbar-links");
-      if (linksEl.style.display === "flex") {
-        linksEl.style.display = "none";
-      } else {
-        linksEl.style.display = "flex";
-      }
-    };
-
+    const nav = this.props.nav;
     const userCircle = {
       fontSize: "18px",
       paddingRight: "10px",
@@ -30,18 +21,17 @@ export default class Navbar extends Component {
         <div className="logo">
           <img alt="logo" src="images/logo.png" />
         </div>
-        <div className="navbar-toggle" onClick={classToggle}>
+        <div className="navbar-toggle">
           <i className="fas fa-bars" />
         </div>
         <nav className="navbar-links">
-          <div className="nav-item">Lobby</div>
-          <div className="nav-item">Upcoming</div>
-          <div className="nav-item">
-            Live
-            <i className="fas fa-angle-down" />
-          </div>
-          <div className="nav-item">History</div>
+          {nav.map(nav => (
+            <div className="nav-item" key={nav.title}>
+              {nav.title}
+            </div>
+          ))}
         </nav>
+        {/* nav items not included in API db */}
         <nav className="navbar-links nav-item-right">
           <div className="nav-item">
             Help

@@ -2,30 +2,49 @@ import React, { Component } from "react";
 
 export default class Home extends Component {
   render() {
+    console.log("plays", this.props.plays);
+    console.log("db", this.props.db);
+    const plays = this.props.plays || [];
+    const db = this.props.db || {};
     const shotsStyle = {
       fontWeight: "900"
     };
+
     return (
       <section className="central">
         <div className="top-container">
           <div className="row">
             <div className="column-main">
               <div className="card">
-                <div className="warriors">GOLDEN STATE</div>
-                <br />
-                <div className="warriors-bold">WARRIORS</div>
-                <div className="warriors-score">96</div>
-                <div className="arena">
-                  <h4>7:34 4th</h4>
-                  <br />
-                  Oracle Arena
-                  <br />
-                  Oakland, CA
+                <div className="warriors">
+                  {db.game_stats.away_team.location.toUpperCase()}
                 </div>
-                <div className="thunder-score">81</div>
-                <div className="thunder">OKLAHOMA CITY</div>
                 <br />
-                <div className="thunder-bold">THUNDER</div>
+                <div className="warriors-bold">
+                  {db.game_stats.away_team.name.toUpperCase()}
+                </div>
+                <div className="warriors-score">
+                  {db.game_stats.away_team.score}
+                </div>
+                <div className="arena">
+                  <h4>
+                    {`${db.game_stats.time_left} ${db.game_stats.quarter}th`}
+                  </h4>
+                  <br />
+                  {db.game_stats.arena}
+                  <br />
+                  {db.game_stats.location}
+                </div>
+                <div className="thunder-score">
+                  {db.game_stats.home_team.score}
+                </div>
+                <div className="thunder">
+                  {db.game_stats.home_team.location.toUpperCase()}
+                </div>
+                <br />
+                <div className="thunder-bold">
+                  {db.game_stats.home_team.name.toUpperCase()}
+                </div>
                 <br />
                 <div className="snack">
                   LAST PLAY: TV TIMEOUT. GO GET A SNACK.
@@ -39,35 +58,29 @@ export default class Home extends Component {
                 <div className="court-container">
                   <div className="warriors">
                     <ul>
-                      <li>FG%</li>
-                      <li>
-                        <h3>55.7%</h3>
-                      </li>
-                      <li>FT%</li>
-                      <li>
-                        <h3>60.0%</h3>
-                      </li>
-                      <li>3P%</li>
-                      <li>
-                        <h3>55.5%</h3>
-                      </li>
+                      {db.game_stats.away_team.shooting_stats.map(shot => (
+                        <div key={shot.title}>
+                          <li>{shot.title}</li>
+
+                          <li>
+                            <h3>{shot.perc}</h3>
+                          </li>
+                        </div>
+                      ))}
                     </ul>
                   </div>
                   <img alt="court" src="images/court.png" />
                   <div className="thunder">
                     <ul>
-                      <li>FG%</li>
-                      <li>
-                        <h3>47.1%</h3>
-                      </li>
-                      <li>FT%</li>
-                      <li>
-                        <h3>80.0%</h3>
-                      </li>
-                      <li>3P%</li>
-                      <li>
-                        <h3>36.4%</h3>
-                      </li>
+                      {db.game_stats.home_team.shooting_stats.map(shot => (
+                        <div key={shot.title}>
+                          <li>{shot.title}</li>
+
+                          <li>
+                            <h3>{shot.perc}</h3>
+                          </li>
+                        </div>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -97,74 +110,30 @@ export default class Home extends Component {
               <div className="play-card">
                 <div className="play-head">PLAY BY PLAY</div>
                 <table>
-                  <tr>
-                    <td>
-                      <img alt="curry" src="images/sCurry.png" />
-                    </td>
-                    <td className="text">
-                      <p>7:34 4th</p>
-                      <h5>Stephen Curry</h5>
-                      makes 13-foot jumper. Assisted by
-                      <h5>Draymond Green.</h5>
-                    </td>
-                    <td>
-                      <h5>96-81, GS</h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img alt="durant" src="images/kDurant.png" />
-                    </td>
-                    <td className="text">
-                      <p>7:46 4th</p>
-                      <h5>Kevin Durant</h5>
-                      misses 2-foot layup. Rebounded by
-                      <h5>Andrew Bogut.</h5>
-                    </td>
-                    <td>
-                      <h5>94-81, GS</h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img alt="klay" src="images/kThompson.png" />
-                    </td>
-                    <td className="text">
-                      <p>7:55 4th</p>
-                      <h5>Klay Thompson</h5>
-                      misses 24-foot jumper. Rebounded by
-                      <h5>Serge Ibaka.</h5>
-                    </td>
-                    <td>
-                      <h5>94-81, GS</h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img alt="durant" src="images/kDurant.png" />
-                    </td>
-                    <td className="text">
-                      <p>8:17 4th</p>
-                      <h5>Kevin Durant</h5>
-                      turnover.
-                    </td>
-                    <td>
-                      <h5>94-81, GS</h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img alt="curry" src="images/sCurry.png" />
-                    </td>
-                    <td className="text">
-                      <p>8:27 4th</p>
-                      <h5>Stephen Curry</h5>
-                      makes free throw.
-                    </td>
-                    <td>
-                      <h5>94-81, GS</h5>
-                    </td>
-                  </tr>
+                  <tbody>
+                    {plays.map(plays => (
+                      <tr key={plays.id}>
+                        <td>
+                          {plays.scoring_player === "steph_curry" ? (
+                            <img alt="curry" src="images/sCurry.png" />
+                          ) : plays.scoring_player === "kevin_durant" ? (
+                            <img alt="durant" src="images/kDurant.png" />
+                          ) : (
+                            <img alt="thompson" src="images/kThompson.png" />
+                          )}
+                        </td>
+                        <td className="text">
+                          <p>{`${plays.time_left} ${plays.quarter}th`}</p>
+                          {plays.description}
+                        </td>
+                        <td>
+                          <h5>{`${plays.away_score}-${
+                            plays.home_score
+                          }, GS`}</h5>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </div>
             </div>
