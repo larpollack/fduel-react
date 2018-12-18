@@ -1,7 +1,25 @@
 import React, { Component } from "react";
 
 export default class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isExpanded: false
+    };
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+  handleToggle = e => {
+    e.preventDefault();
+    const navs = document.querySelectorAll(".navbar-links");
+    navs.forEach(nav => nav.classList.toggle("navbar-toggle-show"));
+
+    document.querySelector(".navbar-toggle");
+    this.setState({
+      isExpanded: !this.state.isExpanded
+    });
+  };
   render() {
+    const { isExpanded } = this.state;
     const nav = this.props.nav;
     const userCircle = {
       fontSize: "18px",
@@ -22,14 +40,23 @@ export default class Navbar extends Component {
           <img alt="logo" src="images/logo.png" />
         </div>
         <div className="navbar-toggle">
-          <i className="fas fa-bars" />
+          <div className={`collapsed ${isExpanded ? "isExpanded" : ""}`}>
+            <i className="fas fa-bars" onClick={e => this.handleToggle(e)} />
+          </div>
         </div>
         <nav className="navbar-links">
-          {nav.map(nav => (
-            <div className="nav-item" key={nav.title}>
-              {nav.title}
-            </div>
-          ))}
+          {nav.map(nav =>
+            nav.title === "Live" ? (
+              <div className="nav-active" key={nav.title}>
+                {`${nav.title} `}
+                <i class="fas fa-angle-down" />
+              </div>
+            ) : (
+              <div className="nav-item" key={nav.title}>
+                {nav.title}
+              </div>
+            )
+          )}
         </nav>
         {/* nav items not included in API db */}
         <nav className="navbar-links nav-item-right">

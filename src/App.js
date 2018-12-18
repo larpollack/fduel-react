@@ -12,14 +12,13 @@ export default class App extends Component {
       isLoading: true,
       db: {},
       plays: [],
-      nav: [],
-      footer: []
+      nav: []
     };
   }
 
   componentDidMount() {
     this.getDb();
-    this.getFooter();
+
     this.getNav();
     this.getPlays();
   }
@@ -70,25 +69,6 @@ export default class App extends Component {
         this.setState({ nav, isLoading: false });
       });
   }
-  getFooter() {
-    axios
-      .get(
-        "https://my-json-server.typicode.com/fanduel/moneyball-fe-challenge-data/db"
-      )
-      .then(res =>
-        res.data.footer_scoreboard.map(foot => ({
-          game_id: `${foot.game_id}`,
-          time_left: `${foot.time_left}`,
-          quarter: `${foot.quarter}`,
-          home_team: `${foot.home_team}`,
-          away_team: `${foot.away_team}`,
-          top_performers: `${foot.top_performers}`
-        }))
-      )
-      .then(footer => {
-        this.setState({ footer, isLoading: false });
-      });
-  }
 
   render() {
     if (this.state.isLoading) {
@@ -108,7 +88,7 @@ export default class App extends Component {
             />
           </div>
         </Router>
-        <Footer footer={this.state.footer} />
+        <Footer db={this.state.db} />
       </div>
     );
   }
