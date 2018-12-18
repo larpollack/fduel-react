@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import Konami from "konami";
+import extra from "../extra";
+
+let easter_egg = new Konami(function() {
+  extra();
+});
 
 export default class Home extends Component {
   render() {

@@ -1,3 +1,9 @@
+# Fanduel Frontend with React
+
+Note: any parts of the mockup not provided by the JSON database (eg: right side nav items) are hard-coded for consistency.
+
+Final version may or mayn't contain an easter egg. You know the code.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
